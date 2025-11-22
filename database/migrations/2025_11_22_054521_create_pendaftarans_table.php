@@ -12,7 +12,6 @@ return new class extends Migration {
             $table->foreignId('peserta_id')->constrained()->onDelete('cascade');
             $table->foreignId('kelas_id')->constrained()->onDelete('cascade');
             $table->date('tanggal_daftar');
-            $table->string('status')->default('aktif');
             $table->timestamps();
         });
     }

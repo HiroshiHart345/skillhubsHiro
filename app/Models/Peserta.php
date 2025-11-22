@@ -19,7 +19,7 @@ class Peserta extends Model
     public function kelas()
     {
         return $this->belongsToMany(Kelas::class, 'pendaftarans')
-            ->withPivot('id', 'tanggal_daftar', 'status')
+            ->withPivot('id', 'tanggal_daftar')
             ->withTimestamps();
     }
 

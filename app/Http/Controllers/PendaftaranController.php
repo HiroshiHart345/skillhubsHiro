@@ -9,9 +9,21 @@ use Illuminate\Http\Request;
 
 class PendaftaranController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $pendaftarans = Pendaftaran::with(['peserta', 'kelas'])->get();
+        $query = Pendaftaran::with(['peserta', 'kelas']);
+
+        if ($request->has('search') && $request->search != '') {
+            $search = $request->search;
+            $query->whereHas('peserta', function ($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%");
+            })->orWhereHas('kelas', function ($q) use ($search) {
+                $q->where('nama_kelas', 'like', "%{$search}%");
+            });
+        }
+
+        $pendaftarans = $query->orderBy('created_at', 'desc')->get();
+
         return view('pendaftaran.index', compact('pendaftarans'));
     }
 
@@ -28,41 +40,43 @@ class PendaftaranController extends Controller
             'peserta_id' => 'required|exists:pesertas,id',
             'kelas_id' => 'required|exists:kelas,id',
             'tanggal_daftar' => 'required|date'
+            // DIHAPUS: status validation
         ]);
 
-        // Cek apakah sudah terdaftar
+        // Cek duplikasi pendaftaran (tanpa status)
         $existing = Pendaftaran::where('peserta_id', $request->peserta_id)
             ->where('kelas_id', $request->kelas_id)
             ->first();
 
         if ($existing) {
             return redirect()->back()
-                ->with('error', 'Peserta sudah terdaftar di kelas ini');
+                ->with('error', 'Peserta sudah terdaftar di kelas ini!');
         }
 
         Pendaftaran::create($request->all());
 
         return redirect()->route('pendaftaran.index')
-            ->with('success', 'Pendaftaran berhasil ditambahkan');
+            ->with('success', 'Pendaftaran berhasil ditambahkan!');
     }
 
-    public function showByPeserta(Peserta $peserta)
+    public function showByPeserta($id)
     {
-        $kelasPeserta = $peserta->kelas()->withPivot('id', 'tanggal_daftar')->get();
-        return view('pendaftaran.show-peserta', compact('peserta', 'kelasPeserta'));
+        $peserta = Peserta::with(['kelas'])->findOrFail($id);
+        return view('pendaftaran.show-peserta', compact('peserta'));
     }
 
     public function showByKelas($id)
     {
-        $kelas = Kelas::with('pesertas')->findOrFail($id);
+        $kelas = Kelas::with(['pesertas'])->findOrFail($id);
         return view('pendaftaran.show-kelas', compact('kelas'));
     }
 
-    public function destroy(Pendaftaran $pendaftaran)
+    public function destroy($id)
     {
+        $pendaftaran = Pendaftaran::findOrFail($id);
         $pendaftaran->delete();
 
-        return redirect()->back()
-            ->with('success', 'Pendaftaran berhasil dibatalkan');
+        return redirect()->route('pendaftaran.index')
+            ->with('success', 'Pendaftaran berhasil dibatalkan!');
     }
 }
