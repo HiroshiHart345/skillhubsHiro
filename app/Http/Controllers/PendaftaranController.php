@@ -40,7 +40,7 @@ class PendaftaranController extends Controller
             'peserta_id' => 'required|exists:pesertas,id',
             'kelas_id' => 'required|exists:kelas,id',
             'tanggal_daftar' => 'required|date'
-            // DIHAPUS: status validation
+            
         ]);
 
         // Cek duplikasi pendaftaran (tanpa status)
