@@ -9,7 +9,7 @@ class PesertaController extends Controller
 {
     public function index()
     {
-        $pesertas = Peserta::withCount('kelas')->get();
+        $pesertas = Peserta::all();
         return view('peserta.index', compact('pesertas'));
     }
 
