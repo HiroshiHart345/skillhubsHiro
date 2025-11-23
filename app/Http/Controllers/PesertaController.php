@@ -22,7 +22,7 @@ class PesertaController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:pesertas,email',
+            'email' => 'required|email:rfc,dns|unique:pesertas,email',
             'telepon' => 'required|string|max:15',
             'alamat' => 'required|string'
         ]);
@@ -49,7 +49,7 @@ class PesertaController extends Controller
     {
         $request->validate([
             'nama' => 'required|string|max:255',
-            'email' => 'required|email|unique:pesertas,email,' . $id,
+            'email' => 'required|email:rfc,dns|unique:pesertas,email,' . $id,
             'telepon' => 'required|string|max:15',
             'alamat' => 'required|string'
         ]);
