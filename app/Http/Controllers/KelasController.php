@@ -62,7 +62,7 @@ class KelasController extends Controller
     public function destroy($id)
     {
         $kelas = Kelas::findOrFail($id);
-        $kelas->delete(); // Langsung hapus, cascade akan otomatis hapus pendaftarannya
+        $kelas->delete(); 
 
         return redirect()->route('kelas.index')
             ->with('success', 'Kelas berhasil dihapus!');

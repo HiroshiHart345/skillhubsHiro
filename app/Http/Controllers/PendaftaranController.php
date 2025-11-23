@@ -43,7 +43,7 @@ class PendaftaranController extends Controller
             
         ]);
 
-        // Cek duplikasi pendaftaran (tanpa status)
+        
         $existing = Pendaftaran::where('peserta_id', $request->peserta_id)
             ->where('kelas_id', $request->kelas_id)
             ->first();
