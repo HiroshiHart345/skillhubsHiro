@@ -5,7 +5,6 @@
         <div class="col-md-10">
             <div class="text-center mb-5">
                 <h2 class="mb-3">SkillHub Management</h2>
-                <p class="text-muted">Sistem pengelolaan peserta dan kelas kursus</p>
             </div>
 
             <div class="row">

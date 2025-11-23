@@ -36,10 +36,10 @@ class SkillHubSeeder extends Seeder
 
         // Data Pendaftaran
         $pendaftarans = [
-            ['peserta_id' => 1, 'kelas_id' => 1, 'tanggal_daftar' => '2024-01-15', 'status' => 'aktif'],
-            ['peserta_id' => 1, 'kelas_id' => 2, 'tanggal_daftar' => '2024-01-16', 'status' => 'aktif'],
-            ['peserta_id' => 2, 'kelas_id' => 1, 'tanggal_daftar' => '2024-01-17', 'status' => 'aktif'],
-            ['peserta_id' => 3, 'kelas_id' => 3, 'tanggal_daftar' => '2024-01-18', 'status' => 'aktif'],
+            ['peserta_id' => 1, 'kelas_id' => 1, 'tanggal_daftar' => '2024-01-15'],
+            ['peserta_id' => 1, 'kelas_id' => 2, 'tanggal_daftar' => '2024-01-16'],
+            ['peserta_id' => 2, 'kelas_id' => 1, 'tanggal_daftar' => '2024-01-17'],
+            ['peserta_id' => 3, 'kelas_id' => 3, 'tanggal_daftar' => '2024-01-18'],
         ];
 
         foreach ($pendaftarans as $pendaftaran) {

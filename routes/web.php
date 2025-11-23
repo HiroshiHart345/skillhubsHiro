@@ -20,11 +20,11 @@ Route::get('/', function () {
     ));
 })->name('dashboard');
 
-// Resource Routes - FIXED
+
 Route::resource('peserta', PesertaController::class);
 Route::resource('kelas', KelasController::class);
 Route::resource('pendaftaran', PendaftaranController::class);
 
-// Additional Routes for Pendaftaran
+
 Route::get('/pendaftaran/peserta/{peserta}', [PendaftaranController::class, 'showByPeserta'])->name('pendaftaran.peserta');
 Route::get('/pendaftaran/kelas/{id}', [PendaftaranController::class, 'showByKelas'])->name('pendaftaran.kelas');
