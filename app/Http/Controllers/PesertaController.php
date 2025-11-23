@@ -21,7 +21,7 @@ class PesertaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama' => 'required|string|max:255|unique:pesertas,nama',
             'email' => 'required|email:rfc,dns|unique:pesertas,email',
             'telepon' => 'required|string|max:15|unique:pesertas,telepon',
             'alamat' => 'required|string'
@@ -48,9 +48,9 @@ class PesertaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama' => 'required|string|max:255',
+            'nama' => 'required|string|max:255|unique:pesertas,nama,' . $id,     
             'email' => 'required|email:rfc,dns|unique:pesertas,email,' . $id,
-            'telepon' => 'required|string|max:15|unique:pesertas,telepon',
+            'telepon' => 'required|string|max:15|unique:pesertas,telepon,' . $id, 
             'alamat' => 'required|string'
         ]);
 
