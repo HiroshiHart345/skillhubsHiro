@@ -64,13 +64,7 @@ class PesertaController extends Controller
     public function destroy($id)
     {
         $peserta = Peserta::findOrFail($id);
-
-        if ($peserta->kelas()->count() > 0) {
-            return redirect()->route('peserta.index')
-                ->with('error', 'Tidak dapat menghapus peserta yang sudah terdaftar di kelas!');
-        }
-
-        $peserta->delete();
+        $peserta->delete(); // Langsung hapus, cascade akan otomatis hapus pendaftarannya
 
         return redirect()->route('peserta.index')
             ->with('success', 'Peserta berhasil dihapus!');

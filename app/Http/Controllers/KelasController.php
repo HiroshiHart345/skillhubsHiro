@@ -62,13 +62,7 @@ class KelasController extends Controller
     public function destroy($id)
     {
         $kelas = Kelas::findOrFail($id);
-
-        if ($kelas->pesertas()->count() > 0) {
-            return redirect()->route('kelas.index')
-                ->with('error', 'Tidak dapat menghapus kelas yang sudah memiliki peserta terdaftar!');
-        }
-
-        $kelas->delete();
+        $kelas->delete(); // Langsung hapus, cascade akan otomatis hapus pendaftarannya
 
         return redirect()->route('kelas.index')
             ->with('success', 'Kelas berhasil dihapus!');
